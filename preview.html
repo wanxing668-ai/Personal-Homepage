@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>个人网站预览 - 像素风格</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-dark: #1a1a2e;
+      --bg-card: #16213e;
+      --accent-red: #e94560;
+      --accent-green: #0f3460;
+      --accent-yellow: #f1c40f;
+      --accent-blue: #3498db;
+      --accent-purple: #9b59b6;
+      --accent-cyan: #00d2d3;
+      --text-light: #ecf0f1;
+      --text-dim: #95a5a6;
+      --border-pixel: 4px solid #fff;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'VT323', monospace;
+      background: var(--bg-dark);
+      color: var(--text-light);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* 像素字体标题 */
+    h1, h2, h3 {
+      font-family: 'Press Start 2P', cursive;
+      letter-spacing: 2px;
+    }
+
+    /* 导航 */
+    .header {
+      background: linear-gradient(180deg, #0f0f23 0%, #1a1a2e 100%);
+      padding: 20px;
+      border-bottom: var(--border-pixel);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 14px;
+      color: var(--accent-cyan);
+      text-shadow: 3px 3px 0 var(--accent-purple);
+    }
+
+    nav {
+      display: flex;
+      gap: 20px;
+    }
+
+    nav a {
+      font-family: 'VT323', monospace;
+      font-size: 22px;
+      color: var(--text-light);
+      text-decoration: none;
+      padding: 8px 16px;
+      border: 2px solid transparent;
+      transition: all 0.2s;
+    }
+
+    nav a:hover {
+      background: var(--accent-red);
+      border-color: #fff;
+      box-shadow: 4px 4px 0 #fff;
+    }
+
+    /* Hero 区 */
+    .hero {
+      padding: 80px 20px;
+      text-align: center;
+      background:
+        radial-gradient(circle at 20% 50%, rgba(233, 69, 96, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 50%, rgba(0, 210, 211, 0.15) 0%, transparent 50%),
+        var(--bg-dark);
+    }
+
+    .avatar-container {
+      width: 160px;
+      height: 160px;
+      margin: 0 auto 30px;
+      position: relative;
+    }
+
+    .avatar {
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple));
+      border: var(--border-pixel);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Press Start 2P', cursive;
+      font-size: 48px;
+      image-rendering: pixelated;
+      box-shadow: 8px 8px 0 rgba(0,0,0,0.5);
+    }
+
+    .avatar::after {
+      content: '';
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      right: -8px;
+      bottom: -8px;
+      border: 4px dashed var(--accent-yellow);
+      animation: rotate 10s linear infinite;
+    }
+
+    @keyframes rotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .hero h1 {
+      font-size: 28px;
+      margin-bottom: 16px;
+      color: var(--accent-yellow);
+      text-shadow: 4px 4px 0 var(--accent-red);
+    }
+
+    .hero .tagline {
+      font-size: 26px;
+      color: var(--text-dim);
+    }
+
+    .cursor {
+      display: inline-block;
+      width: 14px;
+      height: 26px;
+      background: var(--accent-green);
+      animation: blink 1s step-end infinite;
+      vertical-align: middle;
+      margin-left: 4px;
+    }
+
+    @keyframes blink {
+      50% { opacity: 0; }
+    }
+
+    /* 区块通用样式 */
+    .section {
+      padding: 60px 20px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-title {
+      font-size: 18px;
+      margin-bottom: 40px;
+      padding: 16px 24px;
+      background: var(--accent-red);
+      display: inline-block;
+      border: 4px solid #fff;
+      box-shadow: 6px 6px 0 #000;
+    }
+
+    /* 关于我 */
+    .about-content {
+      background: var(--bg-card);
+      padding: 30px;
+      border: 4px solid var(--accent-cyan);
+      box-shadow: 6px 6px 0 rgba(0,210,211,0.3);
+    }
+
+    .about-content p {
+      font-size: 24px;
+      line-height: 1.8;
+    }
+
+    /* 技能 */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .skill-tag {
+      font-family: 'Press Start 2P', cursive;
+      font-size: 12px;
+      padding: 16px 24px;
+      border: 4px solid;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .skill-tag:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 #000;
+    }
+
+    .skill-tag:nth-child(1) { background: #ff6b6b; border-color: #ee5a5a; }
+    .skill-tag:nth-child(2) { background: #4ecdc4; border-color: #3eb8b0; }
+    .skill-tag:nth-child(3) { background: #ffe66d; border-color: #eed55c; color: #333; }
+    .skill-tag:nth-child(4) { background: #95e1d3; border-color: #84d0c2; color: #333; }
+    .skill-tag:nth-child(5) { background: #f38181; border-color: #e27070; }
+    .skill-tag:nth-child(6) { background: #aa96da; border-color: #9985c9; }
+    .skill-tag:nth-child(7) { background: #fcbad3; border-color: #eaa9c2; color: #333; }
+    .skill-tag:nth-child(8) { background: #a8d8ea; border-color: #97c7d9; color: #333; }
+
+    /* 项目卡片 */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+    }
+
+    .project-card {
+      background: var(--bg-card);
+      border: 4px solid var(--accent-yellow);
+      padding: 24px;
+      transition: transform 0.2s;
+    }
+
+    .project-card:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 var(--accent-red);
+    }
+
+    .project-icon {
+      width: 60px;
+      height: 60px;
+      background: var(--accent-purple);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      border: 3px solid #fff;
+    }
+
+    .project-card h3 {
+      font-family: 'VT323', monospace;
+      font-size: 28px;
+      margin-bottom: 12px;
+      color: var(--accent-yellow);
+    }
+
+    .project-card p {
+      font-size: 20px;
+      color: var(--text-dim);
+      margin-bottom: 16px;
+    }
+
+    .project-tags {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .project-tag {
+      font-size: 16px;
+      padding: 4px 12px;
+      background: var(--accent-green);
+      border: 2px solid var(--accent-blue);
+    }
+
+    /* 作品集 */
+    .portfolio-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 20px;
+    }
+
+    .portfolio-item {
+      aspect-ratio: 1;
+      background: linear-gradient(135deg, var(--accent-red), var(--accent-purple));
+      border: 4px solid #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 40px;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+
+    .portfolio-item:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px var(--accent-cyan);
+    }
+
+    /* 联系 */
+    .contact-links {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .contact-btn {
+      font-family: 'VT323', monospace;
+      font-size: 24px;
+      padding: 16px 32px;
+      border: 4px solid;
+      cursor: pointer;
+      text-decoration: none;
+      display: inline-block;
+      transition: all 0.2s;
+    }
+
+    .contact-btn:hover {
+      transform: translate(-4px, -4px);
+      box-shadow: 8px 8px 0 #000;
+    }
+
+    .contact-btn.github { background: #333; border-color: #fff; color: #fff; }
+    .contact-btn.email { background: #e74c3c; border-color: #c0392b; color: #fff; }
+    .contact-btn.twitter { background: #1da1f2; border-color: #1a91da; color: #fff; }
+    .contact-btn.blog { background: #2ecc71; border-color: #27ae60; color: #fff; }
+
+    /* 页脚 */
+    .footer {
+      background: #0f0f23;
+      padding: 40px 20px;
+      text-align: center;
+      border-top: var(--border-pixel);
+    }
+
+    .footer p {
+      font-size: 20px;
+      color: var(--text-dim);
+    }
+
+    .footer .heart {
+      color: var(--accent-red);
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    /* 响应式 */
+    @media (max-width: 768px) {
+      .header-content { flex-direction: column; gap: 16px; }
+      .hero h1 { font-size: 18px; }
+      .section-title { font-size: 14px; }
+      .portfolio-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+  </style>
+</head>
+<body>
+  <!-- 导航 -->
+  <header class="header">
+    <div class="header-content">
+      <div class="logo">◢█◣ PORTFOLIO ◢█◣</div>
+      <nav>
+        <a href="#hero">首页</a>
+        <a href="#about">关于</a>
+        <a href="#skills">技能</a>
+        <a href="#projects">项目</a>
+        <a href="#portfolio">作品</a>
+        <a href="#contact">联系</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- Hero -->
+  <section class="hero" id="hero">
+    <div class="avatar-container">
+      <div class="avatar">👾</div>
+    </div>
+    <h1>你的名字</h1>
+    <p class="tagline">一个热爱编程的开发者<span class="cursor"></span></p>
+  </section>
+
+  <!-- 关于 -->
+  <section class="section" id="about">
+    <h2 class="section-title">▸ 关于我</h2>
+    <div class="about-content">
+      <p>你好！我是来自[城市]的开发者，热爱技术和创意。喜欢探索新技术，擅长前端开发和用户体验设计。空闲时间喜欢玩游戏和看动漫。</p>
+    </div>
+  </section>
+
+  <!-- 技能 -->
+  <section class="section" id="skills">
+    <h2 class="section-title">▸ 技能树</h2>
+    <div class="skills-grid">
+      <div class="skill-tag">JavaScript</div>
+      <div class="skill-tag">React</div>
+      <div class="skill-tag">Node.js</div>
+      <div class="skill-tag">TypeScript</div>
+      <div class="skill-tag">CSS</div>
+      <div class="skill-tag">Git</div>
+      <div class="skill-tag">Python</div>
+      <div class="skill-tag">SQL</div>
+    </div>
+  </section>
+
+  <!-- 项目 -->
+  <section class="section" id="projects">
+    <h2 class="section-title">▸ 项目经验</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon">🎮</div>
+        <h3>像素游戏引擎</h3>
+        <p>使用 JavaScript 开发的 2D 像素游戏引擎，支持多平台导出。</p>
+        <div class="project-tags">
+          <span class="project-tag">JS</span>
+          <span class="project-tag">Canvas</span>
+          <span class="project-tag">游戏</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">📱</div>
+        <h3>任务管理 App</h3>
+        <p>简洁高效的任务管理应用，支持番茄钟和团队协作。</p>
+        <div class="project-tags">
+          <span class="project-tag">React</span>
+          <span class="project-tag">Node.js</span>
+          <span class="project-tag">MongoDB</span>
+        </div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon">🌐</div>
+        <h3>个人博客系统</h3>
+        <p>基于 Markdown 的静态博客系统，支持主题定制。</p>
+        <div class="project-tags">
+          <span class="project-tag">Vue</span>
+          <span class="project-tag">Markdown</span>
+          <span class="project-tag">Vercel</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 作品集 -->
+  <section class="section" id="portfolio">
+    <h2 class="section-title">▸ 作品集</h2>
+    <div class="portfolio-grid">
+      <div class="portfolio-item">🎨</div>
+      <div class="portfolio-item">🖥️</div>
+      <div class="portfolio-item">📱</div>
+      <div class="portfolio-item">🎮</div>
+      <div class="portfolio-item">🌐</div>
+      <div class="portfolio-item">📊</div>
+      <div class="portfolio-item">🎵</div>
+      <div class="portfolio-item">✨</div>
+    </div>
+  </section>
+
+  <!-- 联系 -->
+  <section class="section" id="contact">
+    <h2 class="section-title">▸ 联系我</h2>
+    <div class="contact-links">
+      <a href="#" class="contact-btn github">⎔ GitHub</a>
+      <a href="#" class="contact-btn email">✉ Email</a>
+      <a href="#" class="contact-btn twitter">🐦 Twitter</a>
+      <a href="#" class="contact-btn blog">📝 Blog</a>
+    </div>
+  </section>
+
+  <!-- 页脚 -->
+  <footer class="footer">
+    <p>© 2026 Made with <span class="heart">❤</span> and lots of ☕</p>
+    <p style="margin-top: 10px; font-family: 'Press Start 2P'; font-size: 10px; color: #666;">
+      PRESS START TO CONTINUE
+    </p>
+  </footer>
+</body>
+</html>
